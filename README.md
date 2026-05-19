@@ -1,25 +1,98 @@
 # Washington State EV Adoption — Interactive Dashboard
 
-**Data Visualization Project — Part 2: Charts & Dashboard**
+> An interactive data storytelling dashboard exploring 280,000+ electric vehicle registrations in Washington State.
 
-An interactive data storytelling web application built with Dash + Plotly,
-exploring 280,000+ electric vehicle registrations in Washington State.
+![Built with](https://img.shields.io/badge/built%20with-Dash%20%2B%20Plotly-brightgreen)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## What's inside
+---
 
-Four story-driven charts plus a unified interactive dashboard:
+## Live Demo
 
-1. **Adoption over time** — BEV vs PHEV registrations by model year
-2. **Market share** — Top 10 manufacturers (Tesla holds ~41%)
-3. **Range evolution** — Median electric range by year and EV type
-4. **Geographic concentration** — Top 10 counties by EV count
+**[cs450-project-l8yg.onrender.com](https://cs450-project-l8yg.onrender.com/)**
 
-Interactive controls:
-- Model Year range slider
-- County dropdown
-- EV Type radio buttons (All / BEV / PHEV)
+---
 
-All four charts update simultaneously based on the active filters.
+## About
+
+Electric vehicle adoption is reshaping transportation in the U.S., and Washington State is at the forefront. This dashboard makes it easy to explore over 280,000 EV registrations through four interconnected, story-driven visualizations.
+
+Each chart answers a different question — how fast are EVs growing? Who dominates the market? How has battery range improved? Where are EVs concentrated geographically? — and all four update simultaneously through unified interactive controls.
+
+The data comes from the Washington State Department of Licensing and covers model years 1999–2026, with careful cleaning to handle missing values, impute unreported ranges, and ensure narrative consistency.
+
+---
+
+## Features
+
+- **Adoption Over Time** — Area chart showing BEV vs PHEV registrations by model year
+- **Market Share** — Horizontal bar chart of top 10 manufacturers (Tesla holds ~41%)
+- **Range Evolution** — Line chart of median electric range by year and EV type
+- **Geographic Concentration** — Top 10 counties by EV registrations
+- **Unified Filters** — Model year range slider, county dropdown, and EV type selector that control all charts simultaneously
+- **KPI Cards** — At-a-glance metrics for total vehicles, Tesla share, King County share, BEV share, and unique manufacturers
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Dash 2.18 |
+| Charting | Plotly 5.24 |
+| Data Processing | Pandas 2.2 |
+| Server | Gunicorn 23.0 |
+| Styling | Custom CSS (Space Grotesk + Inter, dark theme) |
+| Deployment | Render |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- pip
+
+### Installation
+
+```bash
+git clone https://github.com/Mouner9360/CS450-Project.git
+cd CS450-Project
+pip install -r requirements.txt
+```
+
+### Running Locally
+
+```bash
+python clean_data.py   # generates ev_clean.csv (one-time)
+python app.py           # serves on http://localhost:8050
+```
+
+Open [http://localhost:8050](http://localhost:8050) in your browser.
+
+---
+
+## Deployment
+
+Deployed on **Render** with one-click setup:
+
+1. Connect the GitHub repo on Render
+2. Build command: `pip install -r requirements.txt`
+3. Start command: `gunicorn app:server`
+
+---
+
+## Key Insights
+
+- EV registrations grew **~11x** between 2015 and 2024
+- **Tesla** alone holds **40.9%** of the market — more than the next 8 makers combined
+- **King County** contains nearly half (49.2%) of all WA EVs
+- BEV share climbed from **70%** (2018) to **88%** (2023)
+- Median BEV range nearly **quadrupled** between 2013 (75 mi) and 2020 (291 mi)
+
+---
 
 ## Dataset
 
@@ -27,18 +100,9 @@ All four charts update simultaneously based on the active filters.
 - **Size**: ~280,000 rows, 16 columns
 - **Coverage**: 1999–2026 model years, 99.75% Washington State
 
-## Data cleaning
+---
 
-- Dropped 12 rows with missing geographic info (insignificant: ~0.004%)
-- Dropped 700+ rows missing the Electric Utility field
-- Filtered to Washington State only (99.75% of records) for narrative consistency
-- Removed 24 incomplete 2027-model-year records
-- For Electric Range, `0` values represent "not reported" rather than literal zero,
-  so they are imputed with the mean range grouped by (Make, Model Year)
-- A separate `Electric Range Reported` column preserves the original NaN structure
-  for charts that should only show actual reported values (Chart 3)
-
-## Project structure
+## Project Structure
 
 ```
 ev_dashboard/
@@ -46,40 +110,29 @@ ev_dashboard/
 ├── clean_data.py       # Data cleaning script
 ├── ev_clean.csv        # Cleaned dataset (generated)
 ├── requirements.txt    # Python dependencies
-├── Procfile            # Deployment config (Render/Railway)
+├── Procfile            # Deployment config (Render)
 ├── assets/
 │   └── styles.css      # Custom dashboard styling
-└── README.md
+└── previews/           # Chart screenshots
 ```
 
-## Run locally
+---
 
-```bash
-pip install -r requirements.txt
-python clean_data.py        # generates ev_clean.csv (one-time)
-python app.py               # serves on http://localhost:8050
-```
+## Contributing
 
-## Deploy
+Pull requests are welcome. For major changes, please open an issue first.
 
-The app is configured for one-click deployment on Render or Railway:
+---
 
-1. Push this folder to a GitHub repo
-2. On Render: New Web Service → connect repo → Build: `pip install -r requirements.txt`
-   → Start: `gunicorn app:server`
-3. Paste the live URL into the IEEE report (page 1)
+## License
 
-## Tech stack
+[MIT](LICENSE)
 
-- **Dash 2.18** — Python web framework for analytical apps
-- **Plotly 5.24** — Interactive charting
-- **Pandas 2.2** — Data wrangling
-- **Custom CSS** — Space Grotesk + Inter typography, dark theme
+---
 
-## Key insights surfaced
+## Author
 
-- EV registrations grew **~11x** between 2015 and 2024
-- **Tesla** alone holds **40.9%** of the market — more than the next 8 makers combined
-- **King County** contains nearly half (49.2%) of all WA EVs
-- BEV share of new registrations climbed from **70%** (2018) to **88%** (2023)
-- Median BEV range nearly **quadrupled** between 2013 (75 mi) and 2020 (291 mi)
+**Mouner Wissa**
+- Portfolio: [mouner9360.github.io/portfolio](https://mouner9360.github.io/portfolio)
+- LinkedIn: [linkedin.com/in/mouner-wissa-8493a1282](https://www.linkedin.com/in/mouner-wissa-8493a1282/)
+- GitHub: [@Mouner9360](https://github.com/Mouner9360)
